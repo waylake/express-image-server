@@ -4,7 +4,8 @@ import { ImageController } from "@/controllers";
 import { cacheMiddleware } from "@/middlewares";
 
 const router = Router();
-const upload = multer({ dest: "uploads/" });
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 const imageController = new ImageController();
 
 router.post("/upload", upload.single("image"), (req, res) =>
