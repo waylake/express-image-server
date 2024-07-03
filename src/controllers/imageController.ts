@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { ImageService } from "@/services";
-import fs from "fs";
 
 const imageService = new ImageService();
 
@@ -12,13 +11,11 @@ export class ImageController {
       return;
     }
 
-    const imageData = fs.readFileSync(image.path);
     const imageUrl = await imageService.uploadImage(
-      imageData,
+      image.buffer,
       image.originalname,
       image.mimetype,
     );
-    fs.unlinkSync(image.path);
 
     res.json({ imageUrl });
   }
